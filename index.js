@@ -32,7 +32,7 @@ bot.hears("/niña", (ctx) => {
 });
 
 // 3. Comando para ver la lista (/lista)
-bot.command("lista", async (ctx) => {
+/* bot.command("lista", async (ctx) => {
   const { data, error } = await supabase.from("shopping_list").select("*");
 
   if (error) return ctx.reply("❌ Error al consultar la base de datos.");
@@ -45,6 +45,69 @@ bot.command("lista", async (ctx) => {
   });
 
   ctx.reply(mensaje, { parse_mode: "Markdown" });
+}); */
+
+// 3. Comando interactivo para ver la lista (/lista)
+bot.command('lista', async (ctx) => {
+    // Pedimos los datos ordenados por ID para que siempre salgan en el mismo orden
+    const { data, error } = await supabase.from('shopping_list').select('*').order('id', { ascending: true });
+    
+    if (error) return ctx.reply('❌ Error al consultar la base de datos.');
+    if (data.length === 0) return ctx.reply('🛒 La lista de la compra está vacía.');
+
+    // Creamos un array de botones. Cada fila tendrá un botón con el nombre del producto
+    const botones = data.map(item => [
+        Markup.button.callback(`❌ Borrar ${item.item_name}`, `borrar_${item.id}`)
+    ]);
+
+    ctx.reply('📝 *Tu lista de la compra:*\n(Pulsa un producto para eliminarlo)', { 
+        parse_mode: 'Markdown',
+        ...Markup.inlineKeyboard(botones)
+    });
+});
+
+// Acción dinámica para cuando se pulsa un botón de "Borrar [Producto]"
+bot.action(/borrar_(.+)/, async (ctx) => {
+    // Extraemos el ID del producto que viene oculto en el botón
+    const itemId = ctx.match[1];
+
+    // 1. Lo borramos de Supabase usando su ID único
+    const { data: deletedData, error: deleteError } = await supabase.from('shopping_list')
+        .delete()
+        .eq('id', itemId)
+        .select();
+
+    if (deleteError) {
+        return ctx.answerCbQuery('❌ Error al borrar el producto.', { show_alert: true });
+    }
+
+    // answerCbQuery hace que el botón deje de mostrar el icono del "relojito" de carga en Telegram
+    if (deletedData && deletedData.length > 0) {
+        ctx.answerCbQuery(`🗑️ ${deletedData[0].item_name} eliminado.`);
+    } else {
+        ctx.answerCbQuery('⚠️ El producto ya no existe.');
+    }
+
+    // 2. Volvemos a consultar la lista actualizada para refrescar el mensaje
+    const { data: newList, error: fetchError } = await supabase.from('shopping_list').select('*').order('id', { ascending: true });
+
+    if (fetchError) return; // Si falla al recargar, no hacemos nada para no romper la app
+
+    // 3. Actualizamos el mensaje original
+    if (newList.length === 0) {
+        // Si ya no quedan elementos, cambiamos los botones por un texto simple
+        return ctx.editMessageText('🛒 La lista de la compra ha quedado vacía.');
+    }
+
+    // Si quedan elementos, reconstruimos los botones
+    const nuevosBotones = newList.map(item => [
+        Markup.button.callback(`❌ Borrar ${item.item_name}`, `borrar_${item.id}`)
+    ]);
+
+    ctx.editMessageText('📝 *Tu lista de la compra:*\n(Pulsa un producto para eliminarlo)', {
+        parse_mode: 'Markdown',
+        ...Markup.inlineKeyboard(nuevosBotones)
+    });
 });
 
 // 4. Comando para añadir productos (/add)
