@@ -12,6 +12,10 @@ const mostrarAyuda = (ctx) => {
 🔸 */del [producto]* - Borra un producto (nombre).
 🔸 */clear* - Vacía TODA la lista de la compra.
 🔸 */help* - Muestra este mensaje.
+
+En Echo se debe decir "dile a DespensaBot que...":
+🔸 *añadir* -  necesitamos [producto]
+🔸 *listar* - qué falta / qué hay
     `;
   ctx.reply(mensajeAyuda, { parse_mode: "Markdown" });
 };
