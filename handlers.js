@@ -55,7 +55,7 @@ const mostrarLista = async (ctx) => {
     const { data, error } = await supabase
       .from("shopping_list")
       .select("*")
-      .order("id", { ascending: true });
+      .order("item_name", { ascending: true });
 
     if (error) return ctx.reply("❌ Error al consultar la base de datos.");
     if (!data || data.length === 0)
