@@ -17,12 +17,12 @@ const configuracionPrimeReact = {
   ripple: true
 };
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <PrimeReactProvider value={configuracionPrimeReact}>
-      <BrowserRouter>
+      <BrowserRouter basename='/DespensaBot'>
         <App />
       </BrowserRouter>
     </PrimeReactProvider>
-  </StrictMode>
+  </StrictMode>,
 );
