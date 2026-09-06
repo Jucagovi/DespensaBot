@@ -1,0 +1,218 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light;
+  color: #334155;
+  background-color: #f8fafc;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* variables y estilos del tema oscuro */
+:root.modo-oscuro {
+  color-scheme: dark;
+  color: #f1f5f9;
+  background-color: #0f172a;
+  --surface-ground: #0f172a;
+  --surface-card: #1e293b;
+  --surface-overlay: #1e293b;
+  --surface-border: #334155;
+  --surface-0: #1e293b;
+  --surface-50: #263345;
+  --surface-100: #334155;
+  --surface-200: #475569;
+  --surface-300: #64748b;
+  --surface-400: #94a3b8;
+  --surface-500: #cbd5e1;
+  --surface-600: #e2e8f0;
+  --surface-700: #f1f5f9;
+  --surface-800: #f8fafc;
+  --surface-900: #ffffff;
+  --text-color: #f1f5f9;
+  --text-color-secondary: #94a3b8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #f1f5f9;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body.modo-oscuro {
+  background-color: #0b1120;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease;
+}
+
+body.modo-oscuro #root {
+  background-color: #1e293b;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+}
+
+/* esquinas redondeadas para botones y elementos táctiles */
+.p-button {
+  border-radius: 12px;
+  touch-action: manipulation;
+}
+
+.p-button.p-button-rounded {
+  border-radius: 50% !important;
+}
+
+/* esquinas redondeadas en tarjetas de producto */
+.tarjeta-producto {
+  border-radius: 14px !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+}
+
+.tarjeta-producto:active {
+  transform: scale(0.98);
+}
+
+/* esquinas redondeadas en botones de selección de tiendas */
+.boton-tienda {
+  border-radius: 12px !important;
+}
+
+/* esquinas redondeadas en diálogos de PrimeReact */
+.p-dialog {
+  border-radius: 18px !important;
+  overflow: hidden;
+}
+
+.p-dialog .p-dialog-header {
+  border-top-left-radius: 18px !important;
+  border-top-right-radius: 18px !important;
+}
+
+.p-inputtext,
+.p-inputnumber-input {
+  border-radius: 10px;
+}
+
+.p-inputnumber-input {
+  text-align: center !important;
+}
+
+.p-inputgroup > .p-inputtext:first-child,
+.p-inputgroup > .p-inputgroup-addon:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.p-inputgroup > .p-inputtext:last-child,
+.p-inputgroup > .p-inputgroup-addon:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* ajustes del modo oscuro para clases de PrimeReact y PrimeFlex */
+.modo-oscuro .text-900 {
+  color: #f8fafc !important;
+}
+
+.modo-oscuro .text-800 {
+  color: #f1f5f9 !important;
+}
+
+.modo-oscuro .text-700 {
+  color: #e2e8f0 !important;
+}
+
+.modo-oscuro .text-600 {
+  color: #cbd5e1 !important;
+}
+
+.modo-oscuro .text-500 {
+  color: #94a3b8 !important;
+}
+
+.modo-oscuro .text-400 {
+  color: #64748b !important;
+}
+
+.modo-oscuro .surface-card {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+.modo-oscuro .surface-0 {
+  background-color: #1e293b !important;
+}
+
+.modo-oscuro .surface-ground {
+  background-color: #0f172a !important;
+}
+
+.modo-oscuro .surface-border {
+  border-color: #334155 !important;
+}
+
+.modo-oscuro .border-300 {
+  border-color: #475569 !important;
+}
+
+.modo-oscuro .p-inputtext {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+  border-color: #334155 !important;
+}
+
+.modo-oscuro .p-inputgroup-addon {
+  background-color: #1e293b !important;
+  color: #94a3b8 !important;
+  border-color: #334155 !important;
+}
+
+.modo-oscuro .p-dialog {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+.modo-oscuro .p-dialog .p-dialog-header,
+.modo-oscuro .p-dialog .p-dialog-content,
+.modo-oscuro .p-dialog .p-dialog-footer {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+.modo-oscuro .p-tabmenu .p-tabmenu-nav {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+.modo-oscuro .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+  background-color: #1e293b !important;
+  color: #94a3b8 !important;
+}
+
+.modo-oscuro .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+  color: #38bdf8 !important;
+  border-color: #38bdf8 !important;
+}
+
+.modo-oscuro .boton-tienda-inactivo {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+.modo-oscuro .boton-tienda-activo {
+  background-color: #273549 !important;
+  border-color: #38bdf8 !important;
+}
