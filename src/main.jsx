@@ -2,6 +2,10 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { PrimeReactProvider } from 'primereact/api';
+import { registerSW } from 'virtual:pwa-register';
+
+// Registro automático de la PWA y actualización del Service Worker
+registerSW({ immediate: true });
 
 // se importan los estilos de PrimeReact, el tema Nano, PrimeIcons y PrimeFlex.
 import 'primereact/resources/themes/nano/theme.css';

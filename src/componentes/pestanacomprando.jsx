@@ -65,11 +65,12 @@ const PestanaComprando = ({ toastRef }) => {
 
   // se obtiene el logotipo correspondiente al supermercado del producto.
   const obtenerLogoTienda = (nombreTienda) => {
-    if (!nombreTienda) return '/tiendas/otro.svg';
+    const logoPorDefecto = `${import.meta.env.BASE_URL}tiendas/otro.svg`;
+    if (!nombreTienda) return logoPorDefecto;
     const encontrado = LISTA_TIENDAS.find(
       (t) => t.clave.toLowerCase() === nombreTienda.toLowerCase()
     );
-    return encontrado ? encontrado.logo : '/tiendas/otro.svg';
+    return encontrado ? encontrado.logo : logoPorDefecto;
   };
 
   return (
