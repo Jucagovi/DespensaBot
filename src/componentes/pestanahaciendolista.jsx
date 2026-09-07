@@ -4,7 +4,7 @@ import { Button } from 'primereact/button';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dialog } from 'primereact/dialog';
 import { useCarritoContexto } from '../contextos/carritocontexto.jsx';
-import { LISTA_TIENDAS } from '../config/tiendas.js';
+import { LISTA_TIENDAS, FILAS_TIENDAS } from '../config/tiendas.js';
 
 // se implementa la vista para gestionar el catálogo, editar nombres y añadir productos ordenados alfabéticamente.
 const PestanaHaciendoLista = ({ toastRef }) => {
@@ -259,25 +259,20 @@ const PestanaHaciendoLista = ({ toastRef }) => {
           <i className="pi pi-plus-circle text-primary" />
           Introducir producto a la lista
         </h2>
-        <form onSubmit={manejarCrearProducto} className="flex gap-2">
-          <div className="p-inputgroup flex-1">
-            <span className="p-inputgroup-addon border-round-left-lg">
-              <i className="pi pi-box" />
-            </span>
-            <InputText
-              value={nuevoNombre}
-              onChange={(e) => setNuevoNombre(e.target.value)}
-              placeholder="Nombre del producto (ej: Leche)"
-              className="text-sm w-full border-round-right-lg"
-              disabled={cargando}
-            />
-          </div>
+        <form onSubmit={manejarCrearProducto} className="flex gap-2 align-items-center">
+          <InputText
+            value={nuevoNombre}
+            onChange={(e) => setNuevoNombre(e.target.value)}
+            placeholder="Nombre del producto (ej: Leche)"
+            className="flex-1 border-round-lg text-base p-inputtext-holgado"
+            disabled={cargando}
+          />
           <Button
             type="submit"
             label="Añadir"
             icon="pi pi-plus"
             loading={cargando}
-            className="p-button-primary p-button-sm flex-shrink-0 border-round-lg"
+            className="p-button-primary flex-shrink-0 border-round-lg font-semibold boton-anadir-grande"
           />
         </form>
       </div>
@@ -304,24 +299,28 @@ const PestanaHaciendoLista = ({ toastRef }) => {
             <div
               key={producto.id}
               onClick={() => abrirDialogoAnadir(producto)}
-              className="tarjeta-producto surface-card p-2 px-3 shadow-1 flex align-items-center justify-content-between cursor-pointer border-left-3 border-300"
+              className="tarjeta-producto surface-card p-3 px-3 shadow-1 flex align-items-center justify-content-between cursor-pointer border-left-3 border-300 gap-2"
               role="button"
               tabIndex={0}
-              style={{ minHeight: '48px' }}
+              style={{ minHeight: '64px' }}
             >
-              <span className="font-semibold text-800 text-sm white-space-nowrap overflow-hidden text-overflow-ellipsis flex-1 pr-2">
+              <span
+                className="font-semibold text-800 white-space-nowrap overflow-hidden text-overflow-ellipsis flex-1 pr-2 min-w-0"
+                style={{ fontSize: '1.15rem' }}
+                title={producto.nombre}
+              >
                 {producto.nombre}
               </span>
 
               {/* acciones del producto en despensa: cambiar nombre, añadir a cesta y borrar */}
-              <div className="flex align-items-center gap-1 flex-shrink-0">
+              <div className="flex align-items-center gap-2 flex-shrink-0">
                 <Button
                   icon="pi pi-pencil"
                   rounded
                   text
                   severity="secondary"
                   aria-label="Cambiar nombre"
-                  className="p-button-sm"
+                  className="boton-accion-despensa"
                   onClick={(e) => abrirDialogoEditarNombre(e, producto)}
                   tooltip="Cambiar nombre"
                   tooltipOptions={{ position: 'left' }}
@@ -332,7 +331,7 @@ const PestanaHaciendoLista = ({ toastRef }) => {
                   text
                   severity="info"
                   aria-label="Añadir a lista"
-                  className="p-button-sm"
+                  className="boton-accion-despensa"
                   tooltip="Añadir a lista"
                   tooltipOptions={{ position: 'left' }}
                 />
@@ -342,7 +341,7 @@ const PestanaHaciendoLista = ({ toastRef }) => {
                   text
                   severity="danger"
                   aria-label="Borrar producto"
-                  className="p-button-sm"
+                  className="boton-accion-despensa"
                   onClick={(e) => solicitarBorradoDefinitivo(e, producto)}
                   tooltip="Borrar permanentemente"
                   tooltipOptions={{ position: 'left' }}
@@ -436,8 +435,8 @@ const PestanaHaciendoLista = ({ toastRef }) => {
             <span className="text-base font-bold text-900 block">{productoParaAnadir?.nombre}</span>
           </div>
 
-          {/* selector de cantidad */}
-          <div>
+          {/* selector de cantidad ampliado con separación */}
+          <div className="flex justify-content-center my-2">
             <InputNumber
               id="cantidad-input"
               value={cantidadSeleccionada}
@@ -449,56 +448,61 @@ const PestanaHaciendoLista = ({ toastRef }) => {
               max={99}
               incrementButtonIcon="pi pi-plus"
               decrementButtonIcon="pi pi-minus"
-              className="w-full"
-              inputClassName="text-center font-bold text-base"
+              className="selector-cantidad-grande"
             />
           </div>
 
-          {/* selector de tienda en una sola fila con logotipos y esquinas redondeadas */}
-          <div className="flex flex-column gap-1">
+          {/* selector de tienda en dos filas con logotipos ampliados y esquinas redondeadas */}
+          <div className="flex flex-column gap-2">
             {tiendaSeleccionada && (
               <div className="text-center">
                 <span className="text-primary font-semibold text-xs">{tiendaSeleccionada}</span>
               </div>
             )}
 
-            <div
-              className="flex align-items-center justify-content-between gap-1 w-full"
-              style={{ overflowX: 'hidden' }}
-            >
-              {LISTA_TIENDAS.map((tienda) => {
-                const estaSeleccionada = tiendaSeleccionada === tienda.clave;
-                return (
-                  <button
-                    key={tienda.clave}
-                    type="button"
-                    onClick={() => setTiendaSeleccionada(tienda.clave)}
-                    title={tienda.nombre}
-                    aria-label={tienda.nombre}
-                    className={`boton-tienda cursor-pointer transition-all transition-duration-150 flex align-items-center justify-content-center p-1 ${
-                      estaSeleccionada
-                        ? 'boton-tienda-activo border-2 border-primary shadow-2'
-                        : 'boton-tienda-inactivo border-1 surface-border hover:surface-100'
-                    }`}
-                    style={{
-                      flex: '1 1 0',
-                      minWidth: 0,
-                      height: '46px',
-                      outline: 'none'
-                    }}
-                  >
-                    <img
-                      src={tienda.logo}
-                      alt={tienda.nombre}
-                      style={{
-                        maxHeight: '26px',
-                        maxWidth: '100%',
-                        objectFit: 'contain'
-                      }}
-                    />
-                  </button>
-                );
-              })}
+            <div className="flex flex-column gap-2 w-full">
+              {FILAS_TIENDAS.map((fila, indexFila) => (
+                <div
+                  key={indexFila}
+                  className="flex align-items-center justify-content-between gap-1 w-full"
+                  style={{ overflowX: 'hidden' }}
+                >
+                  {fila.map((tienda) => {
+                    const estaSeleccionada = tiendaSeleccionada === tienda.clave;
+                    return (
+                      <button
+                        key={tienda.clave}
+                        type="button"
+                        onClick={() => setTiendaSeleccionada(tienda.clave)}
+                        title={tienda.nombre}
+                        aria-label={tienda.nombre}
+                        className={`boton-tienda cursor-pointer transition-all transition-duration-150 flex align-items-center justify-content-center p-1 ${
+                          estaSeleccionada
+                            ? 'boton-tienda-activo border-2 border-primary shadow-2'
+                            : 'boton-tienda-inactivo border-1 surface-border hover:surface-100'
+                        }`}
+                        style={{
+                          flex: '1 1 0',
+                          minWidth: 0,
+                          height: '56px',
+                          outline: 'none'
+                        }}
+                      >
+                        <img
+                          src={tienda.logo}
+                          alt={tienda.nombre}
+                          className="border-round"
+                          style={{
+                            maxHeight: '35px',
+                            maxWidth: '100%',
+                            objectFit: 'contain'
+                          }}
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
+              ))}
             </div>
           </div>
         </div>

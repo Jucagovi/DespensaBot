@@ -61,7 +61,7 @@ const Cabecera = () => {
         model={pestañas}
         activeIndex={indiceActivo}
         onTabChange={(e) => pestañas[e.index].command()}
-        className="w-full text-sm"
+        className="w-full pestanas-grandes"
       />
     </header>
   );

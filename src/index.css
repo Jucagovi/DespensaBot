@@ -110,6 +110,101 @@ body.modo-oscuro #root {
   text-align: center !important;
 }
 
+/* Input y botón holgados en sección Introducir producto */
+.p-inputtext-holgado {
+  padding: 0.75rem 1rem !important;
+  font-size: 1rem !important;
+  height: 48px !important;
+  border-radius: 12px !important;
+}
+
+.boton-anadir-grande {
+  height: 48px !important;
+  font-size: 1.05rem !important;
+  padding: 0.75rem 1.4rem !important;
+  border-radius: 12px !important;
+}
+
+/* Selector de cantidad en modal: ampliado un tercio con margen para que respiren */
+.selector-cantidad-grande.p-inputnumber {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  gap: 12px !important;
+}
+
+.selector-cantidad-grande .p-inputnumber-button {
+  width: 52px !important;
+  height: 52px !important;
+  min-width: 52px !important;
+  border-radius: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  touch-action: manipulation;
+  margin: 0 !important;
+}
+
+.selector-cantidad-grande .p-inputnumber-button .p-button-icon {
+  font-size: 1.25rem !important;
+}
+
+.selector-cantidad-grande .p-inputnumber-input {
+  height: 52px !important;
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  border-radius: 14px !important;
+  width: 76px !important;
+  max-width: 90px !important;
+  flex: 0 0 76px !important;
+  margin: 0 !important;
+}
+
+/* Pestañas de navegación ampliadas un tercio */
+.pestanas-grandes .p-tabmenu-nav {
+  display: flex !important;
+  width: 100% !important;
+}
+
+.pestanas-grandes .p-tabmenuitem {
+  flex: 1 1 0 !important;
+  text-align: center !important;
+}
+
+.pestanas-grandes .p-menuitem-link {
+  padding: 0.95rem 0.75rem !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 56px !important;
+}
+
+.pestanas-grandes .p-menuitem-icon {
+  font-size: 1.3rem !important;
+  margin-right: 0.6rem !important;
+}
+
+.pestanas-grandes .p-menuitem-text {
+  font-size: 1.15rem !important;
+}
+
+/* Botones de acción en la lista de despensa ampliados un tercio */
+.boton-accion-despensa {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.boton-accion-despensa .p-button-icon,
+.boton-accion-despensa .pi {
+  font-size: 1.25rem !important;
+}
+
+
+
 .p-inputgroup > .p-inputtext:first-child,
 .p-inputgroup > .p-inputgroup-addon:first-child {
   border-top-left-radius: 10px;
@@ -216,3 +311,14 @@ body.modo-oscuro #root {
   background-color: #273549 !important;
   border-color: #38bdf8 !important;
 }
+
+.modo-oscuro .selector-cantidad-grande .p-inputnumber-button {
+  background-color: #273549 !important;
+  border-color: #334155 !important;
+  color: #f1f5f9 !important;
+}
+
+.modo-oscuro .selector-cantidad-grande .p-inputnumber-button:hover {
+  background-color: #334155 !important;
+}
+

@@ -3,7 +3,7 @@ import { Tag } from 'primereact/tag';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { useCarritoContexto } from '../contextos/carritocontexto.jsx';
-import { LISTA_TIENDAS } from '../config/tiendas.js';
+import { LISTA_TIENDAS, FILAS_TIENDAS } from '../config/tiendas.js';
 
 // se implementa la vista de la pestaña de compra ordenada alfabéticamente y con esquinas redondeadas.
 const PestanaComprando = ({ toastRef }) => {
@@ -75,45 +75,51 @@ const PestanaComprando = ({ toastRef }) => {
 
   return (
     <div className="p-3 flex flex-column gap-3">
-      {/* filtro superior con botones de tiendas y botón para quitar filtros aplicado */}
+      {/* filtro superior con botones de tiendas en dos filas y botón para quitar filtros aplicado */}
       <div className="surface-card p-2 border-round-xl shadow-1 flex flex-column gap-2">
-        <div
-          className="flex align-items-center justify-content-between gap-1 w-full"
-          style={{ overflowX: 'hidden' }}
-        >
-          {LISTA_TIENDAS.map((tienda) => {
-            const estaActivo = tiendaFiltro === tienda.clave;
-            return (
-              <button
-                key={tienda.clave}
-                type="button"
-                onClick={() => setTiendaFiltro(estaActivo ? null : tienda.clave)}
-                title={tienda.nombre}
-                aria-label={tienda.nombre}
-                className={`boton-tienda cursor-pointer transition-all transition-duration-150 flex align-items-center justify-content-center p-1 ${
-                  estaActivo
-                    ? 'boton-tienda-activo border-2 border-primary shadow-2'
-                    : 'boton-tienda-inactivo border-1 surface-border hover:surface-100'
-                }`}
-                style={{
-                  flex: '1 1 0',
-                  minWidth: 0,
-                  height: '42px',
-                  outline: 'none'
-                }}
-              >
-                <img
-                  src={tienda.logo}
-                  alt={tienda.nombre}
-                  style={{
-                    maxHeight: '26px',
-                    maxWidth: '100%',
-                    objectFit: 'contain'
-                  }}
-                />
-              </button>
-            );
-          })}
+        <div className="flex flex-column gap-2 w-full">
+          {FILAS_TIENDAS.map((fila, indexFila) => (
+            <div
+              key={indexFila}
+              className="flex align-items-center justify-content-between gap-1 w-full"
+              style={{ overflowX: 'hidden' }}
+            >
+              {fila.map((tienda) => {
+                const estaActivo = tiendaFiltro === tienda.clave;
+                return (
+                  <button
+                    key={tienda.clave}
+                    type="button"
+                    onClick={() => setTiendaFiltro(estaActivo ? null : tienda.clave)}
+                    title={tienda.nombre}
+                    aria-label={tienda.nombre}
+                    className={`boton-tienda cursor-pointer transition-all transition-duration-150 flex align-items-center justify-content-center p-1 ${
+                      estaActivo
+                        ? 'boton-tienda-activo border-2 border-primary shadow-2'
+                        : 'boton-tienda-inactivo border-1 surface-border hover:surface-100'
+                    }`}
+                    style={{
+                      flex: '1 1 0',
+                      minWidth: 0,
+                      height: '56px',
+                      outline: 'none'
+                    }}
+                  >
+                    <img
+                      src={tienda.logo}
+                      alt={tienda.nombre}
+                      className="border-round"
+                      style={{
+                        maxHeight: '35px',
+                        maxWidth: '100%',
+                        objectFit: 'contain'
+                      }}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          ))}
         </div>
 
         {/* botón para quitar los filtros cuando se ha aplicado uno */}
@@ -168,45 +174,40 @@ const PestanaComprando = ({ toastRef }) => {
               <div
                 key={producto.id}
                 onClick={() => solicitarRetirada(producto)}
-                className="tarjeta-producto surface-card p-2 px-3 shadow-1 flex align-items-center justify-content-between gap-2 cursor-pointer border-left-3 border-primary"
+                className="tarjeta-producto surface-card p-3 px-3 shadow-1 flex align-items-center justify-content-between gap-3 cursor-pointer border-left-3 border-primary"
                 role="button"
                 tabIndex={0}
-                style={{ minHeight: '48px' }}
+                style={{ minHeight: '64px' }}
               >
                 {/* imagen de la tienda a la izquierda sin texto y nombre del producto */}
-                <div className="flex align-items-center gap-2 flex-1 min-w-0">
+                <div className="flex align-items-center gap-3 flex-1 min-w-0">
                   <img
                     src={logoTienda}
                     alt={producto.supermercado || 'Tienda'}
                     className="border-round flex-shrink-0"
                     style={{
-                      width: '28px',
-                      height: '28px',
+                      width: '38px',
+                      height: '38px',
                       objectFit: 'contain',
                       backgroundColor: 'rgba(255, 255, 255, 0.08)',
                       padding: '2px'
                     }}
                   />
-                  <span className="font-semibold text-800 text-sm white-space-nowrap overflow-hidden text-overflow-ellipsis">
+                  <span
+                    className="font-semibold text-800 white-space-nowrap overflow-hidden text-overflow-ellipsis flex-1 min-w-0"
+                    style={{ fontSize: '1.15rem' }}
+                    title={producto.nombre}
+                  >
                     {producto.nombre}
                   </span>
                 </div>
 
-                {/* cantidad y botón de check en una sola línea */}
-                <div className="flex align-items-center gap-2 flex-shrink-0">
+                {/* cantidad en una sola línea (se quita el botón de check verde) */}
+                <div className="flex align-items-center flex-shrink-0">
                   <Tag
                     value={`x${producto.cantidad || 1}`}
                     severity="info"
-                    className="text-xs px-2 py-1 font-bold border-round-lg"
-                  />
-                  <Button
-                    icon="pi pi-check"
-                    rounded
-                    text
-                    severity="success"
-                    aria-label="Comprar"
-                    className="p-button-sm"
-                    style={{ width: '28px', height: '28px' }}
+                    className="font-bold border-round-lg text-sm px-3 py-2"
                   />
                 </div>
               </div>
