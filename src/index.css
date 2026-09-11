@@ -90,16 +90,53 @@ body.modo-oscuro #root {
   border-radius: 12px !important;
 }
 
-/* esquinas redondeadas en diálogos de PrimeReact */
+/* esquinas redondeadas y espaciado interior holgado en ventanas emergentes de PrimeReact */
 .p-dialog {
-  border-radius: 18px !important;
+  border-radius: 20px !important;
   overflow: hidden;
 }
 
 .p-dialog .p-dialog-header {
-  border-top-left-radius: 18px !important;
-  border-top-right-radius: 18px !important;
+  border-top-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  padding: 1.5rem 1.5rem 0.75rem 1.5rem !important;
 }
+
+.p-dialog .p-dialog-title {
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  font-size: 1.1rem !important;
+}
+
+.p-dialog .p-dialog-content {
+  padding: 0.75rem 1.5rem 1.25rem 1.5rem !important;
+  line-height: 1.6 !important;
+}
+
+.p-dialog .p-dialog-footer {
+  padding: 0.75rem 1.5rem 1.5rem 1.5rem !important;
+  border-bottom-left-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+}
+
+.p-dialog .p-dialog-footer .p-button {
+  min-height: 44px !important;
+  padding: 0.65rem 1.2rem !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  border-radius: 12px !important;
+  touch-action: manipulation;
+}
+
+.p-dialog .p-dialog-footer .p-button .p-button-icon {
+  font-size: 1.1rem !important;
+}
+
 
 .p-inputtext,
 .p-inputnumber-input {
@@ -123,6 +160,14 @@ body.modo-oscuro #root {
   font-size: 1.05rem !important;
   padding: 0.75rem 1.4rem !important;
   border-radius: 12px !important;
+}
+
+.boton-limpiar-filtro {
+  height: 48px !important;
+  font-size: 0.95rem !important;
+  padding: 0.75rem 1rem !important;
+  border-radius: 12px !important;
+  white-space: nowrap !important;
 }
 
 /* Selector de cantidad en modal: ampliado un tercio con margen para que respiren */
@@ -321,4 +366,14 @@ body.modo-oscuro #root {
 .modo-oscuro .selector-cantidad-grande .p-inputnumber-button:hover {
   background-color: #334155 !important;
 }
+
+.modo-oscuro .boton-limpiar-filtro.p-button-outlined {
+  color: #cbd5e1 !important;
+  border-color: #475569 !important;
+}
+
+.modo-oscuro .boton-limpiar-filtro.p-button-outlined:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
 

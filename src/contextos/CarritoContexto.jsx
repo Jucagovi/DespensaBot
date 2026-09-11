@@ -5,7 +5,7 @@ import { useCarrito } from '../hooks/useCarrito.js';
 const CarritoContext = createContext(null);
 
 // se define el proveedor que envuelve a la aplicación o sus rutas.
-const CarritoProvider = ({ children }) => {
+const CarritoContexto = ({ children }) => {
   const estadoCarrito = useCarrito();
 
   return (
@@ -24,4 +24,4 @@ export const useCarritoContexto = () => {
   return contexto;
 };
 
-export default CarritoProvider;
+export default CarritoContexto;

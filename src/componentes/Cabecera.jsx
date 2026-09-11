@@ -1,9 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { TabMenu } from 'primereact/tabmenu';
 import { Button } from 'primereact/button';
-import IndicadorConexion from './indicadorconexion.jsx';
-import { useCarritoContexto } from '../contextos/carritocontexto.jsx';
-import { useTemaContexto } from '../contextos/temacontexto.jsx';
+import IndicadorConexion from './IndicadorConexion.jsx';
+import { useCarritoContexto } from '../contextos/CarritoContexto.jsx';
+import { useTemaContexto } from '../contextos/TemaContexto.jsx';
 
 // se define la cabecera con navegación, conmutador de tema a la derecha e indicador de conexión en tiempo real.
 const Cabecera = () => {
@@ -32,26 +32,35 @@ const Cabecera = () => {
   const indiceActivo = ubicacion.pathname === '/haciendo-lista' ? 1 : 0;
 
   return (
-    <header className="surface-0 shadow-1 sticky top-0 z-5">
-      <div className="flex align-items-center justify-content-between px-3 py-2 border-bottom-1 surface-border">
-        {/* bloque con icono y título de la aplicación */}
-        <div className="flex align-items-center gap-2">
-          <i className="pi pi-shopping-bag text-primary text-xl" />
-          <h1 className="text-lg font-bold m-0 text-900">DespensaBot</h1>
+    <header className='surface-0 shadow-1 sticky top-0 z-5'>
+      <div className='flex align-items-center justify-content-between px-3 py-2 border-bottom-1 surface-border'>
+        {/* bloque con logotipo de Aldi y título de la aplicación ampliado */}
+        <div className='flex align-items-center gap-2'>
+          <img
+            src={`${import.meta.env.BASE_URL}tiendas/aldi.svg`}
+            alt='Logo DespensaBot Aldi'
+            className='border-round flex-shrink-0'
+            style={{ width: '38px', height: '38px', objectFit: 'contain' }}
+          />
+          <h1 className='text-2xl font-bold m-0 text-900 line-height-1'>
+            DespensaBot
+          </h1>
         </div>
 
         {/* bloque derecho con botón de cambio de tema e indicador en tiempo real */}
-        <div className="flex align-items-center gap-2">
+        <div className='flex align-items-center gap-2'>
           <Button
-            icon={esModoOscuro ? 'pi pi-sun' : 'pi pi-moon'}
+            icon={esModoOscuro ? "pi pi-sun" : "pi pi-moon"}
             rounded
             text
-            severity={esModoOscuro ? 'warning' : 'secondary'}
+            severity={esModoOscuro ? "warning" : "secondary"}
             onClick={conmutarTema}
-            aria-label="Cambiar tema oscuro o claro"
-            className="p-button-sm"
-            tooltip={esModoOscuro ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-            tooltipOptions={{ position: 'bottom' }}
+            aria-label='Cambiar tema oscuro o claro'
+            className='p-button-sm'
+            tooltip={
+              esModoOscuro ? "Cambiar a modo claro" : "Cambiar a modo oscuro"
+            }
+            tooltipOptions={{ position: "bottom" }}
           />
           <IndicadorConexion estado={estadoConexion} />
         </div>
@@ -61,7 +70,7 @@ const Cabecera = () => {
         model={pestañas}
         activeIndex={indiceActivo}
         onTabChange={(e) => pestañas[e.index].command()}
-        className="w-full pestanas-grandes"
+        className='w-full pestanas-grandes'
       />
     </header>
   );

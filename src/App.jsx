@@ -1,11 +1,11 @@
 import { useRef } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
-import CarritoProvider from './contextos/carritocontexto.jsx';
-import TemaProvider from './contextos/temacontexto.jsx';
-import Cabecera from './componentes/cabecera.jsx';
-import PestanaComprando from './componentes/pestanacomprando.jsx';
-import PestanaHaciendoLista from './componentes/pestanahaciendolista.jsx';
+import CarritoProvider from './contextos/CarritoContexto.jsx';
+import TemaProvider from './contextos/TemaContexto.jsx';
+import Cabecera from './componentes/Cabecera.jsx';
+import PestanaComprando from './componentes/PestanaComprando.jsx';
+import PestanaHaciendoLista from './componentes/PestanaHaciendoLista.jsx';
 
 // se define el componente principal de la aplicación con la configuración de rutas y proveedores.
 const App = () => {
